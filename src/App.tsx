@@ -4,10 +4,6 @@ import {
   Youtube, 
   Gamepad2, 
   Disc as Discord, 
-  Play, 
-  Pause, 
-  Volume2, 
-  VolumeX, 
   ChevronRight, 
   ExternalLink,
   Target,
@@ -75,60 +71,6 @@ const GlitchTitle = ({ text }: { text: string }) => {
   );
 };
 
-const AudioPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  return (
-    <div className="fixed bottom-8 left-8 z-[110] px-4 py-2 glass rounded-none border-l-4 border-l-hellfire flex items-center gap-4 transition-all hover:bg-white/10">
-      <audio 
-        ref={audioRef} 
-        loop
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // Placeholder Phonk-ish loop
-      />
-      
-      <button 
-        onClick={togglePlay}
-        className="w-10 h-10 flex items-center justify-center bg-hellfire text-white skew-btn"
-      >
-        {isPlaying ? <Pause size={20} /> : <Play size={20} fill="currentColor" />}
-      </button>
-
-      <div className="flex flex-col">
-        <span className="text-[10px] uppercase font-black tracking-widest text-emerald italic">SYSTEM AUDIO</span>
-        <span className="text-xs font-mono font-bold truncate max-w-[150px] uppercase tracking-tighter">PHONK / SYNTHWAVE MIX</span>
-      </div>
-
-      <div className="flex items-center gap-1 h-4 px-2">
-        {[1, 2, 3, 4, 5].map((i) => (
-          <motion.div
-            key={i}
-            animate={isPlaying ? { height: [4, 16, 8, 14, 4] } : { height: 4 }}
-            transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
-            className="w-1 bg-emerald rounded-full"
-          />
-        ))}
-      </div>
-
-      <button onClick={() => setIsMuted(!isMuted)} className="text-gray-400 hover:text-white">
-        {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-      </button>
-    </div>
-  );
-};
-
 const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full z-[105] p-6 flex justify-between items-center pointer-events-none">
@@ -140,10 +82,15 @@ const Header = () => {
 
       <nav className="pointer-events-auto hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-gray-400">
         <a href="#" className="text-white border-b border-hellfire pb-1">HOME</a>
-        <a href="#" className="hover:text-white transition-colors">BLOOD STRIKE</a>
-        <a href="#" className="hover:text-white transition-colors">OTHER GAMES</a>
+        <a href="#games" className="hover:text-white transition-colors">ARCHIVE</a>
+        <a href="https://youtube.com/@nonsansgaming?si=GccwqK-r2ZDv7ylC" target="_blank" rel="noopener noreferrer" className="hover:text-[#FF0000] transition-colors flex items-center gap-1">
+          <img src="https://www.iconpacks.net/icons/1/free-youtube-icon-123-thumb.png" alt="YouTube" className="w-4 h-4 object-contain" /> YOUTUBE
+        </a>
+        <a href="https://www.tiktok.com/@nonsans_gaming?_r=1&_t=ZS-96NbYCaTxx6" target="_blank" rel="noopener noreferrer" className="hover:text-[#00f2ea] transition-colors flex items-center gap-1">
+          <img src="https://cdn-icons-png.flaticon.com/512/3116/3116491.png" alt="TikTok" className="w-4 h-4 object-contain invert" /> TIKTOK
+        </a>
         <a href="#" className="text-[#5865F2] hover:text-[#5865F2]/80 transition-colors flex items-center gap-1 inline-flex">
-          THE COMM DISCORD
+          <Discord size={14} /> DISCORD
         </a>
       </nav>
     </header>
@@ -218,7 +165,6 @@ export default function App() {
     <div className="relative min-h-screen bg-void bold-theme-border">
       <FlameBorder intensity={flameIntensity} />
       <Header />
-      <AudioPlayer />
 
       {/* Hero Section */}
       <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -261,28 +207,34 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-hellfire drop-shadow-[0_0_15px_rgba(255,0,64,0.5)]">
               NEXT-LEVEL
             </h2>
-            <h3 className="text-xl md:text-2xl font-bold tracking-[0.2em] mb-4 text-white/90">
-              ⚡ GAMING ARCHIVE ⚡
+            <h3 className="text-xl md:text-2xl font-bold tracking-[0.2em] mb-4 text-white/90 uppercase">
+              GAMING ARCHIVE
             </h3>
             <p className="max-w-md text-gray-400 text-lg leading-relaxed border-l-2 border-emerald pl-4 font-medium italic">
               "Welcome to the official archive. Master high-tier movement in Blood Strike, witness legendary Counter-Strike clutches, and explore expert Minecraft engineering. We don't just play the game—we redefine it."
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-6">
-              <motion.button 
+              <motion.a 
+                href="https://youtube.com/@nonsansgaming?si=GccwqK-r2ZDv7ylC"
+                target="_blank"
+                rel="noopener noreferrer"
                 onHoverStart={() => setFlameIntensity(2)}
                 onHoverEnd={() => setFlameIntensity(1)}
-                className="skew-btn px-10 py-4 bg-[#FF0000] font-black uppercase italic tracking-tighter shadow-[0_0_20px_rgba(255,0,0,0.4)] flex items-center gap-2"
+                className="skew-btn px-10 py-4 bg-[#FF0000] font-black uppercase italic tracking-tighter shadow-[0_0_20px_rgba(255,0,0,0.4)] flex items-center gap-3"
               >
-                <Youtube size={18} fill="white" /> WATCH YOUTUBE
-              </motion.button>
-              <motion.button 
+                <img src="https://www.iconpacks.net/icons/1/free-youtube-icon-123-thumb.png" alt="YouTube" className="w-5 h-5 object-contain" /> WATCH YOUTUBE
+              </motion.a>
+              <motion.a 
+                href="https://www.tiktok.com/@nonsans_gaming?_r=1&_t=ZS-96NbYCaTxx6"
+                target="_blank"
+                rel="noopener noreferrer"
                 onHoverStart={() => setFlameIntensity(2)}
                 onHoverEnd={() => setFlameIntensity(1)}
-                className="skew-btn px-10 py-4 bg-black border border-cyan-400 text-white font-black uppercase italic tracking-tighter flex items-center gap-2"
+                className="skew-btn px-10 py-4 bg-black border border-cyan-400 text-white font-black uppercase italic tracking-tighter flex items-center gap-3"
               >
-                <Music size={18} className="text-cyan-400" /> BROWSE TIKTOK
-              </motion.button>
+                <img src="https://cdn-icons-png.flaticon.com/512/3116/3116491.png" alt="TikTok" className="w-5 h-5 object-contain invert" /> BROWSE TIKTOK
+              </motion.a>
             </div>
           </motion.div>
         </div>
@@ -350,8 +302,13 @@ export default function App() {
         </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a href="#" className="glass p-6 rounded-none border-l-4 border-l-[#FF0000] flex items-center gap-6 hover:bg-[#FF0000] transition-all group overflow-hidden relative">
-              <Youtube className="text-[#FF0000] group-hover:text-white z-10" size={40} />
+            <a 
+              href="https://youtube.com/@nonsansgaming?si=GccwqK-r2ZDv7ylC" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass p-6 rounded-none border-l-4 border-l-[#FF0000] flex items-center gap-6 hover:bg-[#FF0000] transition-all group overflow-hidden relative"
+            >
+              <img src="https://www.iconpacks.net/icons/1/free-youtube-icon-123-thumb.png" alt="YouTube" className="w-10 h-10 object-contain z-10 brightness-0 invert group-hover:brightness-100 group-hover:invert-0" />
               <div className="z-10">
                 <h4 className="font-black italic uppercase tracking-widest text-sm text-white">Youtube Channel</h4>
                 <p className="text-[10px] text-gray-500 group-hover:text-white/80 uppercase">Movement guides & High-kill games</p>
@@ -366,8 +323,13 @@ export default function App() {
               </div>
               <div className="absolute top-0 right-0 p-2 text-[8px] font-bold opacity-10 uppercase text-white">#BASE-02</div>
             </a>
-            <a href="#" className="glass p-6 rounded-none border-l-4 border-l-[#00f2ea] flex items-center gap-6 hover:bg-black border-r-4 border-r-[#ff0050] transition-all group overflow-hidden relative">
-              <Music className="text-[#00f2ea] group-hover:text-white z-10" size={40} />
+            <a 
+              href="https://www.tiktok.com/@nonsans_gaming?_r=1&_t=ZS-96NbYCaTxx6" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass p-6 rounded-none border-l-4 border-l-[#00f2ea] flex items-center gap-6 hover:bg-black border-r-4 border-r-[#ff0050] transition-all group overflow-hidden relative"
+            >
+              <img src="https://cdn-icons-png.flaticon.com/512/3116/3116491.png" alt="TikTok" className="w-10 h-10 object-contain z-10 invert group-hover:brightness-100 group-hover:invert-0" />
               <div className="z-10">
                 <h4 className="font-black italic uppercase tracking-widest text-sm text-white">TikTok Clips</h4>
                 <p className="text-[10px] text-gray-400 group-hover:text-white/80 uppercase">Daily highlights & short montages</p>
