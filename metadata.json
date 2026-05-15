@@ -1,0 +1,8 @@
+{
+  "name": "NONSANS | The Warzone Archive",
+  "description": "The official hub for NONSANS gaming. High-tier Blood Strike guides, Counter-Strike clutches, and Minecraft builds.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
