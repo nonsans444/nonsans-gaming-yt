@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: nonsans-gaming
+    env: static
+    buildCommand: npm install && npm run build
+    publishPath: ./dist
+    routes:
+      - from: /*
+        to: /index.html
+        type: rewrite
