@@ -1,7 +1,5 @@
-services:
-  - type: web
-    name: nonsans-gaming
-    env: static
+staticSites:
+  - name: nonsans-gaming
     buildCommand: npm install && npm run build
     publishPath: ./dist
     routes:
